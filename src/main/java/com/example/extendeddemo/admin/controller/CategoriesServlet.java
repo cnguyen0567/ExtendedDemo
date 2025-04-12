@@ -25,7 +25,7 @@ import jakarta.servlet.http.HttpServletResponse;
 		"/CategoriesServlet", "/categories" })
 public class CategoriesServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	// cant use util springboot private static final Logger logger = LogManager.getLogger(CategoriesServlet.class);
+	// cant use until springboot private static final Logger logger = LogManager.getLogger(CategoriesServlet.class);
 
 	private ICategoryService categoryService;
 
