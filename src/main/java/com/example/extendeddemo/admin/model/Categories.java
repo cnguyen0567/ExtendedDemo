@@ -1,13 +1,16 @@
 package com.example.extendeddemo.admin.model;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-public class Categories {
+//javabean and pojo
+public class Categories implements Serializable {
 	/* fields */
-	private static final Logger Logger = LogManager.getLogger(Categories.class);
+	//can't use for now private static final Logger Logger = LogManager.getLogger(Categories.class);
+	private static final long serialVersionUID = 1L;
 	private Integer categoryId;
 	private String categoryName;
 	private String categoryDescription;
@@ -23,7 +26,7 @@ public class Categories {
 	public Categories(Integer categoryId, String categoryName, String categoryDescription, String categoryImageUrl,
 			Integer active, LocalDate addedOn) {
 		super();
-		Logger.info("Adding a messaage to the command line");
+		System.out.println("Adding a message to the command line");
 		this.categoryId = categoryId;
 		this.categoryName = categoryName;
 		this.categoryDescription = categoryDescription;

@@ -5,7 +5,7 @@ import java.util.Map;
 
 import com.example.extendeddemo.admin.model.Orders;
 import com.example.extendeddemo.admin.model.Users;
-
+//examples of how to finish the demo
 public class OrderDAOImpl implements IOrderDAO {
 	//Fields:
 	private Map<Integer, Users> userEntry;

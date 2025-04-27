@@ -25,7 +25,8 @@ import jakarta.servlet.http.HttpServletResponse;
 		"/CategoriesServlet", "/categories" })
 public class CategoriesServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	// cant use until springboot private static final Logger logger = LogManager.getLogger(CategoriesServlet.class);
+	// cant use until springboot private static final Logger logger =
+	// LogManager.getLogger(CategoriesServlet.class);
 
 	private ICategoryService categoryService;
 
@@ -45,7 +46,16 @@ public class CategoriesServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		response.getWriter().append("Served at: ").append(request.getContextPath());
+		// response.getWriter().append("Served at: ").append(request.getContextPath());
+		System.out.println("Inside CategoriesServlet.doGet()");
+
+		// begin process of retrieving Category BY ID
+		Categories retrievedCategory = null;   //declare a variable to hold the info
+		try {
+			retrievedCategory = categoryService.getCategory(Long.parseLong(request.getParameter("id"))); //note using wrapper class to convert data type
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**
@@ -60,25 +70,44 @@ public class CategoriesServlet extends HttpServlet {
 
 		if ("createCategory".equals(type)) {
 			System.out.println("Starting Create");
-			// create a category record in db. create a utility method to do the setters and getters
+			// create a category record in db. create a utility fxn that calls the setter to
+			// load
+			// in the input info from front end and then return a categories obj
 			Categories categoriesObj = loadObject(request);
-			// send to DB
-			categoryService.saveCategory(categoriesObj);
-			
+
+			// send to DB & output success/fail results
+			try {
+				categoryService.saveCategory(categoriesObj);
+
+				request.setAttribute("successMessage", "Category added successfully!");
+				request.setAttribute("category", categoriesObj);
+
+				// Forward the request to the JSP for rendering the view
+				RequestDispatcher dispatcher = request.getRequestDispatcher("/category-views-jstl.jsp");
+				dispatcher.forward(request, response);
+			} catch (Exception e) {
+
+				request.setAttribute("errorMessage", e);
+
+				// if there is an error, send the request to an error PAGE
+				request.getRequestDispatcher("/category-views-jstl-error.jsp").forward(request, response);
+			}
+
 		} else if ("updateCategory".equals(type)) {
 			System.out.println("Starting Update");
 			// update an existing category in db
 			Categories categoriesUpdateObj = loadObject(request);
 			try {
-				//the appropriate to UPDATE the category obj created above
+				// the appropriate to UPDATE the category obj created above
 				categoryService.updateCategory(categoriesUpdateObj);
 				System.out.println(categoriesUpdateObj);
-				
-				//setting an additional attribute for the end user
+
+				// setting an additional attribute for the end user
 				request.setAttribute("successMessage", "Category obj updated sucessfully!");
+				// Forward the request to the JSP for rendering the view
 				RequestDispatcher dispatcher = request.getRequestDispatcher("/categories-admin.jsp");
-				dispatcher.forward(request,response);
-			}catch(Exception e) {
+				dispatcher.forward(request, response);
+			} catch (Exception e) {
 				System.out.println("Update failure!: ");
 				e.printStackTrace();
 			}
@@ -95,9 +124,10 @@ public class CategoriesServlet extends HttpServlet {
 		// update the category object with appropriate field values
 		// drawn from the HttpServletRequest
 
-		// Call the setters methods of the Categories class and set CategoryId in case its available.
+		// Call the setters methods of the Categories class and set CategoryId in case
+		// its available.
 		if (request.getParameter("categoryId") != null) {
-			String categoryId = request.getParameter("categoryId");  //getParameter returns a string, need to convert
+			String categoryId = request.getParameter("categoryId"); // getParameter returns a string, need to convert
 			categories.setCategoryId(Integer.parseInt(categoryId));
 
 		}

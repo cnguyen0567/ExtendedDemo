@@ -10,18 +10,18 @@ import com.example.extendeddemo.adminandenduser.dao.ICategoryDAO;
 
 public class CategoryServiceImpl implements ICategoryService {
 	
-	//this is instantiating a class using interface reference
-	private ICategoryDAO dao;
+	//this is instantiating a class using interface reference so that we can complete our service
+	private ICategoryDAO categoryDao;
 	//can't use until springboot private static final Logger logger = LogManager.getLogger(CategoryServiceImpl.class);
 	
 	public CategoryServiceImpl() {    //instantiate the field inside the constructure ensures that 
-		dao = new CategoryDAOImpl();  // when this class is called/used , the field will be instantize
+		categoryDao = new CategoryDAOImpl();  // when this class is called/used , the field will be instantize
 	}
 
 	@Override
 	public Categories getCategory(long id) {
 		// TODO Auto-generated method stub
-		Categories returnedCategory = dao.get(id);  //or just return dao.get(id);
+		Categories returnedCategory = categoryDao.get(id);  //or just return categoryDao.get(id);
 		return returnedCategory;
 	}
 
@@ -35,7 +35,7 @@ public class CategoryServiceImpl implements ICategoryService {
 	public void saveCategory(Categories object) {
 		// TODO Auto-generated method stub
 		System.out.println("Inside CategoriesServiceImpl.saveCategory()");
-		dao.save(object);
+		categoryDao.save(object);
 
 	}
 
@@ -43,7 +43,7 @@ public class CategoryServiceImpl implements ICategoryService {
 	public void updateCategory(Categories object) {
 		// TODO Auto-generated method stub
 		System.out.println("Inside CategoriesServiceImpl.updateCategory()");
-		dao.update(object);
+		categoryDao.update(object);
 		
 	}
 

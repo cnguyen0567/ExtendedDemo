@@ -15,12 +15,10 @@ import org.apache.logging.log4j.Logger;
  * Servlet implementation class FrontControllerServlet
  * act as a router to dispatch requests to the appropriate servlet internal to the app
  */
-@WebServlet(
-		description = "a pattern designed to allow one ENTRY pt into Web App", 
-		urlPatterns = { 
-				"/FrontControllerServlet", 
-				"/FrontController"
-		})
+ /*@WebServlet( description =
+		 * "a pattern designed to allow one ENTRY pt into Web App", urlPatterns = {
+		 * "/FrontControllerServlet", "/FrontController" })
+		 */
 public class FrontControllerServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private static final Logger logger = LogManager.getLogger(FrontControllerServlet.class);

@@ -3,6 +3,7 @@ package com.example.extendeddemo.persist.database;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 
 import org.apache.logging.log4j.LogManager;
@@ -64,5 +65,17 @@ public class Database {
 			logger.error("Error when executing Database.executeUpdate ", e);
 		}
 		return result;
+	}
+	
+	public ResultSet executeQuery(PreparedStatement preparedStatement) {
+		ResultSet resultSetObj = null;
+		try {
+			resultSetObj = preparedStatement.executeQuery();
+		} catch (SQLException e) {
+			// TODO: handle exception
+			System.out.println("Error when executing Database.executeSelect ");
+			e.printStackTrace();
+		}
+		return resultSetObj;
 	}
 }

@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="jakarta.tags.core"%>
 <%@ taglib prefix="f" uri="jakarta.tags.fmt"%>
+<%-- <%@ include file="relativeURL" %> --%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -137,7 +138,8 @@ form button:hover {
 				<label for="categoryName" class="tooltip-trigger"
 					data-bs-toggle="tooltip"
 					title="Enter a unique and descriptive name for the category. This will be displayed in the category listings.">
-					Category Name: </label> <input type="text" id="categoryName"
+					Category Name: </label>
+				<input type="text" id="categoryName"
 					name="categoryName" value="${param.categoryName}" required>
 				<!-- Category Description -->
 				<label for="categoryDesc" class="tooltip-trigger"

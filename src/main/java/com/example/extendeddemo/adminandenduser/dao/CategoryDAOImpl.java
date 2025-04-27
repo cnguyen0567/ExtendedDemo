@@ -3,6 +3,7 @@ package com.example.extendeddemo.adminandenduser.dao;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
@@ -23,6 +24,31 @@ public class CategoryDAOImpl implements ICategoryDAO {
 	@Override
 	public Categories get(long id) {
 		// TODO Auto-generated method stub
+		System.out.println("Starting select sql statement:");
+		// validation to make sure that the category ID exists: ...
+		
+		// SQL query to update Categories object into the database
+		String selectSql = "SELECT * FROM categories WHERE categoryId = ?";
+		
+		Categories categoryObj = null; //declare a var to later hold result
+		try (Connection connection = db.getConnection();
+				PreparedStatement ps = connection.prepareStatement(selectSql)){
+			// Set parameters for the Categories update
+			ps.setInt(1, (int) id); //need to convert to database data type
+			// Execute the query
+			ResultSet categoryResultSet = db.executeQuery(ps);
+			
+			//Extract the individual info from the resultSet
+			//--> get<DataType> to extract the info from a string column name
+			categoryObj.setCategoryId( categoryResultSet.getInt("categoryId"));
+			categoryObj.setCategoryName ( categoryResultSet.getString("categoryName"));
+			
+		} catch (Exception e) {
+			// TODO: handle exception
+			System.out.println("SQL Exception occurred: ");
+			e.printStackTrace();
+		}
+		
 		return null;
 	}
 
